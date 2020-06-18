@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class UserModel extends Model{
@@ -29,7 +30,7 @@ class UserModel extends Model{
         email: userDate["email"],
         password: pass
       ).then((value) async{
-        _firebaseUser = value;
+        _firebaseUser = value.user;
 
         await _saveUserData(userDate);
 
@@ -53,7 +54,7 @@ class UserModel extends Model{
         email: email,
         password: pass
     ).then((value)async{
-      _firebaseUser = value;
+      _firebaseUser = value.user;
 
       await _loadCurrentUser();
 
@@ -101,4 +102,52 @@ class UserModel extends Model{
       }
     notifyListeners();
   }
+/*
+  Future<void> googleSignUp() async {
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn(
+        scopes: [
+          'email'
+        ],
+      );
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
+      print("signed in " + user.displayName);
+
+      return user;
+    }catch (e) {
+      print(e.message);
+    }
+  }
+  */
+
+  Future<void> signUpWithFacebook() async{
+    try {
+      var facebookLogin = new FacebookLogin();
+      var result = await facebookLogin.logIn(['email']);
+
+      if(result.status == FacebookLoginStatus.loggedIn) {
+        final AuthCredential credential = FacebookAuthProvider.getCredential(
+          accessToken: result.accessToken.token,
+
+        );
+        final FirebaseUser user = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+        print('signed in ' + user.displayName);
+        return user;
+      }
+    }catch (e) {
+      print(e.message);
+    }
+  }
+
+
 }
