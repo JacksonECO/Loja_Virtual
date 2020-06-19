@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/login_screen.dart';
 import 'package:lojavirtual/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -13,6 +13,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Widget _buildBodyBack() => Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -81,18 +82,68 @@ class CustomDrawer extends StatelessWidget {
                           }
                       )
                     ),
+                  ScopedModelDescendant<UserModel>(
+
+                    builder: (context, child, model) {
+                      if(model.isLoggedIn() && model.userDate["photo"] != null) {
+                          return Positioned(
+                            right: 15,
+                            top: 30,
+                            child: Container(
+                              width: 70,
+                              child: Image.network(
+                                model.userDate["photo"]),
+                          ) ,
+                            );
+                      }else{
+                        print(!model.isLoggedIn());
+                        print(model.userDate["photo"]);
+                          return Positioned(
+                            right: 15,
+                            top: 30,
+                            child: Image.network(
+                                "https://asimovjr.com.br/wp-content/themes/byron/assets/img/logo_navbar.png"
+                                , scale: 2.5),
+                          );
+                      }
+
+                    }
+                  )
                   ],
                 )
               ),
               Divider(),
               DrawerTile(Icons.home, "Início", _pagesController, 0),
-              DrawerTile(Icons.list, "Produtos", _pagesController, 1),
+              DrawerTile(Icons.new_releases, "Novidades", _pagesController, 1),
               DrawerTile(Icons.location_on, "Lojas", _pagesController, 2),
               DrawerTile(Icons.playlist_add_check, "Meus Pedidos", _pagesController, 3),
+              SizedBox(height: 150,child: Container(color: Colors.transparent,),),
+              SizedBox(
+                height: 45,
+                child: RaisedButton(
+                  color: Colors.transparent,
+                  child: Image.network(
+                    "https://asimovjr.com.br/wp-content/themes/byron/assets/img/asimov-header.png",
+                    scale: 0.4,
+                  ),
+                  onPressed: () async {
+                    try{
+                      await launch("https://asimovjr.com.br/");
+                    }catch(e){
+
+                    }
+                  },
+                ),
+
+              )
+
             ],
           )
         ]
       ),
     );
+
   }
+
+
 }

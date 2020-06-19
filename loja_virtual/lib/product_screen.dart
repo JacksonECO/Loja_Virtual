@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/product_dat.dart';
 
@@ -86,7 +87,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                     children: product.modelos.map((s){
                       return GestureDetector(
-                        onTap: (){
+                        onTap: ()  {
                           setState(() {
                             modelos=s;
                           });
@@ -109,6 +110,12 @@ class _ProductScreenState extends State<ProductScreen> {
                       );
                     }
                     ).toList(),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                TextField(
+                  decoration: InputDecoration(
+                      hintText: "Observações",
                   ),
                 ),
                 SizedBox(height: 16,),

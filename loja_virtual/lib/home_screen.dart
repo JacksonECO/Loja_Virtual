@@ -13,10 +13,6 @@ class HomeScreen extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         Scaffold(
-          body: HomeTab(),
-          drawer: CustomDrawer(_pagesController),
-        ),
-        Scaffold(
           appBar: AppBar(
             title: Text("Produtos"),
             centerTitle: true,
@@ -24,6 +20,11 @@ class HomeScreen extends StatelessWidget {
           drawer: CustomDrawer(_pagesController),
           body: ProductsTab(),
         ),
+        Scaffold(
+          body: HomeTab(),
+          drawer: CustomDrawer(_pagesController),
+        ),
+
 
 
         Scaffold(

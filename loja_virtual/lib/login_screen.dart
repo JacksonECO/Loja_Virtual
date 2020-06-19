@@ -165,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.toys, size: 30),
+                          Icon(Icons.android, size: 30),
                           SizedBox(width: 10,),
                           Text(
                             'Entrar com Google',
@@ -177,7 +177,20 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.white,
                       padding: EdgeInsets.all(10),
                       onPressed: () {
-                        //_googleSignUp();
+                        model.googleSignUp(
+                          onSuccess: (){
+                            Navigator.of(context).pop();
+                          },
+                          onFail: (){
+                            _scaffoldKey.currentState.showSnackBar(
+                                SnackBar(
+                                  content: Text("Falha ao entrar!"),
+                                  backgroundColor: Colors.red,
+                                  duration: Duration(seconds: 2),
+                                )
+                            );
+                        }
+                        );
                       },
                     ),
                   ),

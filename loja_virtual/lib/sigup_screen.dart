@@ -29,6 +29,7 @@ class SigUp extends StatelessWidget {
   final _passControlle = TextEditingController();
   final _addressControlle = TextEditingController();
   final _telControlle = TextEditingController();
+  final _fotoControlle = TextEditingController();
 
 
 
@@ -88,6 +89,20 @@ class SigUp extends StatelessWidget {
                   ),
                   SizedBox(height: 16,),
                   TextFormField(
+                    controller: _fotoControlle,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      hintText: "Foto (opcional)",
+                    ),
+                    validator: (text){
+                      if(!(text.contains(".jpg") || text.contains(".png")))
+                        return "Link da foto inválido";
+                      else
+                        return null;
+                    },
+                  ),
+                  SizedBox(height: 16,),
+                  TextFormField(
                     controller: _emailControlle,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
@@ -129,6 +144,7 @@ class SigUp extends StatelessWidget {
                             "email" : _emailControlle.text,
                             "address" : _addressControlle.text,
                             "tel": _telControlle.text,
+                            "photo": _fotoControlle.text
                           };
                           model.signUp(
                                 userDate: userDate,

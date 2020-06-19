@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class UserModel extends Model{
@@ -70,11 +71,27 @@ class UserModel extends Model{
   }
 
   void signOut() async{
-    await _auth.signOut();
+    try {
+      final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+      _firebaseAuth.signOut();
 
-    userDate = Map();
-    _firebaseUser = null;
-    notifyListeners();
+      userDate = Map();
+      _firebaseUser = null;
+      notifyListeners();
+    }
+    catch(e){
+      print("google");
+      try{
+        await FirebaseAuth.instance.signOut();
+        await _auth.signOut();
+        userDate = Map();
+        _firebaseUser = null;
+        notifyListeners();
+      }
+      catch(e){
+        print("Erro");
+      }
+    }
   }
 
 
@@ -102,33 +119,43 @@ class UserModel extends Model{
       }
     notifyListeners();
   }
-/*
-  Future<void> googleSignUp() async {
+
+  Future<void> googleSignUp({@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
     try {
+      isLoading=true;
       final GoogleSignIn _googleSignIn = GoogleSignIn(
         scopes: [
           'email'
         ],
       );
       final FirebaseAuth _auth = FirebaseAuth.instance;
-
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
       final AuthCredential credential = GoogleAuthProvider.getCredential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+      _firebaseUser = (await _auth.signInWithCredential(credential)).user;
+      print("signed in " + _firebaseUser.displayName);
 
-      final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
-      print("signed in " + user.displayName);
+      Map<String, dynamic> userDate = {
+        "name" : _firebaseUser.displayName,
+        "email" : _firebaseUser.email,
+        "tel": _firebaseUser.phoneNumber,
+        "photo": _firebaseUser.photoUrl
+      };
 
-      return user;
+      await _saveUserData(userDate);
+      await _loadCurrentUser();
+      onSuccess();
+      isLoading=false;
+      return _firebaseUser;
     }catch (e) {
+      onFail();
+      isLoading=false;
       print(e.message);
     }
   }
-  */
 
   Future<void> signUpWithFacebook() async{
     try {
@@ -142,12 +169,12 @@ class UserModel extends Model{
         );
         final FirebaseUser user = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
         print('signed in ' + user.displayName);
+
         return user;
       }
     }catch (e) {
       print(e.message);
     }
   }
-
 
 }
