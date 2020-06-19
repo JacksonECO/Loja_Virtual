@@ -157,8 +157,9 @@ class UserModel extends Model{
     }
   }
 
-  Future<void> signUpWithFacebook() async{
+  Future<void> signUpWithFacebook({@required VoidCallback onSuccess, @required VoidCallback onFail}) async{
     try {
+      isLoading=true;
       var facebookLogin = new FacebookLogin();
       var result = await facebookLogin.logIn(['email']);
 
@@ -167,12 +168,25 @@ class UserModel extends Model{
           accessToken: result.accessToken.token,
 
         );
-        final FirebaseUser user = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
-        print('signed in ' + user.displayName);
+        _firebaseUser = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+        print('signed in ' + _firebaseUser.displayName);
 
-        return user;
+        Map<String, dynamic> userDate = {
+          "name" : _firebaseUser.displayName,
+          "email" : _firebaseUser.email,
+          "tel": _firebaseUser.phoneNumber,
+          "photo": _firebaseUser.photoUrl
+        };
+
+        await _saveUserData(userDate);
+        await _loadCurrentUser();
+        onSuccess();
+        isLoading=false;
+        return _firebaseUser;
       }
     }catch (e) {
+      onFail();
+      isLoading=false;
       print(e.message);
     }
   }

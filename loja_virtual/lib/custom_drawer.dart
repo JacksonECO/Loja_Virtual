@@ -112,12 +112,18 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 )
               ),
+              SizedBox(height: 20),
               Divider(),
               DrawerTile(Icons.home, "Início", _pagesController, 0),
+              Divider(),
               DrawerTile(Icons.new_releases, "Novidades", _pagesController, 1),
+              Divider(),
               DrawerTile(Icons.location_on, "Lojas", _pagesController, 2),
+              Divider(),
               DrawerTile(Icons.playlist_add_check, "Meus Pedidos", _pagesController, 3),
+              Divider(),
               SizedBox(height: 150,child: Container(color: Colors.transparent,),),
+
               SizedBox(
                 height: 45,
                 child: RaisedButton(

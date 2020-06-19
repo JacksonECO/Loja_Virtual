@@ -143,15 +143,27 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.blue[900],
                       padding: EdgeInsets.all(10),
                       onPressed: () {
-                         model.signUpWithFacebook();
+                         model.signUpWithFacebook(
+                             onSuccess: (){
+                               Navigator.of(context).pop();
+                             },
+                             onFail: (){
+                               _scaffoldKey.currentState.showSnackBar(
+                                   SnackBar(
+                                     content: Text("Falha ao entrar!"),
+                                     backgroundColor: Colors.red,
+                                     duration: Duration(seconds: 2),
+                                   )
+                               );
+                             });
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.thumb_up, size: 30),
+                          Image.network("https://www.nicepng.com/png/detail/936-9365795_facebook-icone-facebook-twitter-icon-circle.png"),
                           SizedBox(width: 10,),
                           Text(
-                            "Entrar com Facebook",
+                            "Continuar com Facebook",
                             style: TextStyle(fontSize: 18),
                           ),
                         ],
@@ -165,7 +177,7 @@ class LoginScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.android, size: 30),
+                          Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQjSBeQ8y4ZBqA36nZz1EfevLW9dDtgqrrA4McXg1u_gh_JKDZb&usqp=CAU"),
                           SizedBox(width: 10,),
                           Text(
                             'Entrar com Google',
