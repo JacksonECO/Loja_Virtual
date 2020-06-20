@@ -35,7 +35,7 @@ class CustomDrawer extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(bottom: 8),
                 padding: EdgeInsets.fromLTRB(0, 20, 16, 8),
-                height: 170,
+                height: 180,
                 child: Stack(
                   children: <Widget>[
                     Positioned(
@@ -95,14 +95,13 @@ class CustomDrawer extends StatelessWidget {
                           ) ,
                             );
                       }else{
-                        print(!model.isLoggedIn());
-                        print(model.userDate["photo"]);
                           return Positioned(
                             right: 15,
                             top: 30,
-                            child: Image.network(
-                                "https://asimovjr.com.br/wp-content/themes/byron/assets/img/logo_navbar.png"
-                                , scale: 2.5),
+                            child: Image.asset("images/logo_empresa.png",
+//                            Image.network(
+//                                "https://asimovjr.com.br/wp-content/themes/byron/assets/img/logo_navbar.png"
+                                scale: 2.5),
                           );
                       }
 
@@ -133,8 +132,9 @@ class CustomDrawer extends StatelessWidget {
                   child: RaisedButton(
                     padding: EdgeInsets.only(top: 5, bottom: 3),
                     color: Colors.transparent,
-                    child: Image.network(
-                      "https://asimovjr.com.br/wp-content/themes/byron/assets/img/asimov-header.png",
+                    child: Image.asset("images/asimov_publi.png",
+//                    Image.network(
+//                      "https://asimovjr.com.br/wp-content/themes/byron/assets/img/asimov-header.png",
                       scale: 0.4,
                     ),
                     onPressed: () async {

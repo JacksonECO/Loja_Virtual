@@ -80,17 +80,7 @@ class UserModel extends Model{
       notifyListeners();
     }
     catch(e){
-      print("google");
-      try{
-        await FirebaseAuth.instance.signOut();
-        await _auth.signOut();
-        userDate = Map();
-        _firebaseUser = null;
-        notifyListeners();
-      }
-      catch(e){
         print("Erro");
-      }
     }
   }
 

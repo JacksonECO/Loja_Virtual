@@ -67,14 +67,14 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
                 SizedBox(height: 16),
                 Text(
-                  "Tamanho:",
+                  "Cor:",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500
                   ),
                 ),
                 SizedBox(
-                  height: 45,
+                  height: 55,
                   child: GridView(
                     padding: EdgeInsets.symmetric(vertical: 4),
                     scrollDirection: Axis.horizontal,
@@ -103,7 +103,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           child: Text(
                               s,
                               textAlign: TextAlign.center,
-                          ),
+                            ),
                         ),
                       );
                     }
@@ -123,7 +123,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       color: primaryColor,
                       textColor: Colors.white,
                       onPressed: modelos != null ?
-                      (){
+                      (){//não esquecer do campo de observação.
 
                       } : null,
                       child: Text(
