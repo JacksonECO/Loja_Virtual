@@ -95,7 +95,7 @@ class SigUp extends StatelessWidget {
                       hintText: "Foto (opcional)",
                     ),
                     validator: (text){
-                      if(!text.contains("https://"))
+                      if(!text.contains("https://") && !text.isEmpty)
                         return "Link da foto inválido";
                       else
                         return null;

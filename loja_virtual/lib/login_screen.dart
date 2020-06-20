@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/sigup_screen.dart';
 import 'package:lojavirtual/user_model.dart';
@@ -160,7 +161,8 @@ class LoginScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.network("https://www.nicepng.com/png/detail/936-9365795_facebook-icone-facebook-twitter-icon-circle.png"),
+                          //Image.network("https://www.nicepng.com/png/detail/936-9365795_facebook-icone-facebook-twitter-icon-circle.png"),
+                          Image.asset("images/facebook.png"),
                           SizedBox(width: 10,),
                           Text(
                             "Continuar com Facebook",
@@ -177,7 +179,8 @@ class LoginScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQjSBeQ8y4ZBqA36nZz1EfevLW9dDtgqrrA4McXg1u_gh_JKDZb&usqp=CAU"),
+                          //Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQjSBeQ8y4ZBqA36nZz1EfevLW9dDtgqrrA4McXg1u_gh_JKDZb&usqp=CAU"),
+                          Image.asset("images/google.png"),
                           SizedBox(width: 10,),
                           Text(
                             'Entrar com Google',

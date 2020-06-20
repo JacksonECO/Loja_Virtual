@@ -72,6 +72,9 @@ class UserModel extends Model{
 
   void signOut() async{
     try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn();
+      await _googleSignIn.signOut();
+
       final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
       _firebaseAuth.signOut();
 
@@ -113,11 +116,7 @@ class UserModel extends Model{
   Future<void> googleSignUp({@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
     try {
       isLoading=true;
-      final GoogleSignIn _googleSignIn = GoogleSignIn(
-        scopes: [
-          'email'
-        ],
-      );
+      final GoogleSignIn _googleSignIn = GoogleSignIn();
       final FirebaseAuth _auth = FirebaseAuth.instance;
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
