@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/product_dat.dart';
 

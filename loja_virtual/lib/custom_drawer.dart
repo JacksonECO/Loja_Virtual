@@ -10,7 +10,6 @@ class CustomDrawer extends StatelessWidget {
   final PageController _pagesController;
 
   CustomDrawer(this._pagesController);
-
   @override
   Widget build(BuildContext context) {
 
@@ -122,29 +121,35 @@ class CustomDrawer extends StatelessWidget {
               Divider(),
               DrawerTile(Icons.playlist_add_check, "Meus Pedidos", _pagesController, 3),
               Divider(),
-              SizedBox(height: 150,child: Container(color: Colors.transparent,),),
+              //SizedBox(height: 150,child: Container(color: Colors.transparent,),),
+            ],
+          ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Container(
+                  height: 55,
+                  child: RaisedButton(
+                    padding: EdgeInsets.only(top: 5, bottom: 3),
+                    color: Colors.transparent,
+                    child: Image.network(
+                      "https://asimovjr.com.br/wp-content/themes/byron/assets/img/asimov-header.png",
+                      scale: 0.4,
+                    ),
+                    onPressed: () async {
+                      try{
+                        await launch("https://asimovjr.com.br/");
+                      }catch(e){
 
-              SizedBox(
-                height: 45,
-                child: RaisedButton(
-                  color: Colors.transparent,
-                  child: Image.network(
-                    "https://asimovjr.com.br/wp-content/themes/byron/assets/img/asimov-header.png",
-                    scale: 0.4,
+                      }
+                    },
                   ),
-                  onPressed: () async {
-                    try{
-                      await launch("https://asimovjr.com.br/");
-                    }catch(e){
-
-                    }
-                  },
-                ),
+                )
 
               )
 
-            ],
-          )
+
         ]
       ),
     );
