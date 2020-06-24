@@ -88,7 +88,12 @@ class CardScreen extends StatelessWidget {
                 ),
                 CardDiscount(),
                 CardShip(),
-                CardPrice((){}),///Como parametro tem uma função que rodará apos clicar em Finalizar pedido
+                CardPrice(() async{
+                  String orderID = await model.finishOrder();
+                  if(orderID != null ){
+                    print(orderID);
+                  }
+                }),///Como parametro tem uma função que rodará apos clicar em Finalizar pedido
             ],
             );
           }
