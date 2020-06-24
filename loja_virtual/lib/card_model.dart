@@ -66,6 +66,50 @@ class CardModel extends Model{
     this.couponCode = couponCode;
     this.discountPercentage = discountPercent;
   }
+
+  double getProductsPrice(){
+    double price = 0.0;
+    for(CardProduct c in products){
+      if(c.productData != null){
+        price += c.quantity * c.productData.price;
+      }
+    }
+    return price;
+  }
+
+  double getDiscount(){
+    return getProductsPrice()*discountPercentage/100;
+  }
+
+  double getShip(){
+    return 2.99;
+  }
+
+  String toPrice(String price) {
+    List<String> s1 = List();
+    int tam = price.length;
+
+    for(int i = 0; i<tam; i++){
+      s1.add(price[i]);
+    }
+
+    s1.removeAt(tam-3);
+    s1.insert(tam-3, ",");
+
+    if(tam > 6)
+      s1.insert(tam-6, '.');
+
+    if(tam > 9)
+      s1.insert(tam-9, '.');
+
+    String a = "";
+    for(int q = 0; q<s1.length; q++){
+      a+= s1[q];
+    }
+    return a;
+  }
+
+
 }
 
 

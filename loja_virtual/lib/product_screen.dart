@@ -65,7 +65,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   maxLines: 3,
                 ),
                 Text(
-                  "R\$ ${product.price.toStringAsFixed(2)}",
+                  "R\$ "+ CardModel.of(context).toPrice(product.price.toStringAsFixed(2)),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,

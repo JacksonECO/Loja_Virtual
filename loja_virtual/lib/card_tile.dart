@@ -15,7 +15,7 @@ class CardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    CardModel.of(context).notifyListeners();
     Widget _buildContent(){
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -50,7 +50,7 @@ class CardTile extends StatelessWidget {
                   ),
                   //SizedBox(height: 2,),
                   Text(
-                    "R\$ " + cardProduct.productData.price.toStringAsFixed(2),
+                    "R\$ " + CardModel.of(context).toPrice(cardProduct.productData.price.toStringAsFixed(2)),
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Theme.of(context).primaryColor),
                   ),
                   Row(

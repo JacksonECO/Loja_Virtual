@@ -28,7 +28,8 @@ class CardPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Subtotal"),
-                    Text("R\$ "+"0.00"),
+                    Text("R\$ "+ model.toPrice(model.getProductsPrice().toStringAsFixed(2))),
+                    //Text("R\$ "+ model.getProductsPrice().toStringAsFixed(2)),
                   ],
                 ),
                 Divider(),
@@ -36,7 +37,9 @@ class CardPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Desconto"),
-                    Text("R\$ "+"0.00"),
+                    Text("R\$ "+(model.getDiscount() != 0 ? "-": "") + model.toPrice(model.getDiscount().toStringAsFixed(2)),
+                      style: (model.getDiscount() != 0 ? (TextStyle(color: Colors.redAccent)) : null),
+                    ),
                   ],
                 ),
                 Divider(),
@@ -44,7 +47,7 @@ class CardPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text("Frete + taxas"),
-                    Text("R\$ "+"0.00"),
+                    Text("R\$ "+ model.toPrice(model.getShip().toStringAsFixed(2))),
                   ],
                 ),
                 Divider(),
@@ -55,7 +58,7 @@ class CardPrice extends StatelessWidget {
                     Text("Total",
                     style: TextStyle(fontWeight: FontWeight.w500),
                     ),
-                    Text("R\$ "+"0.00",
+                    Text("R\$ "+model.toPrice((model.getProductsPrice() + model.getShip() - model.getDiscount() ).toStringAsFixed(2)),
                       style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16),
                     ),
                   ],

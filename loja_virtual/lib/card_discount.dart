@@ -28,16 +28,17 @@ class CardDiscount extends StatelessWidget {
               onFieldSubmitted: (text){
                 Firestore.instance.collection("coupons").document(text).get().then((docSnap){
                   if(docSnap.data != null){
-                    CardModel.of(context).setCoupon(text, docSnap.data["percent"]);
+                    int temp = docSnap.data["percent"];
+                    CardModel.of(context).setCoupon(text, temp);
                     Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("Desconto de "+docSnap.data["percent"]+"% aplicado!"),
-                          backgroundColor: Theme.of(context).primaryColor,)
+                        SnackBar(content: Text("Desconto de "+ temp.toString() +"% aplicado!"),
+                          backgroundColor: Theme.of(context).primaryColor)
                     );
                   }else{
                     CardModel.of(context).setCoupon(null, 0);
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text("Cupom não existente ou vencido"),
-                          backgroundColor: Colors.red,)
+                          backgroundColor: Colors.red)
                     );
                   }
                 });

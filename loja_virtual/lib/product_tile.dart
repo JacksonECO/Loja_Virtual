@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/product_data.dart';
 import 'package:lojavirtual/product_screen.dart';
 
+import 'card_model.dart';
+
 class ProductTile extends StatelessWidget {
 
   final String type;
@@ -45,7 +47,7 @@ class ProductTile extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "R\$ ${product.price.toStringAsFixed(2)}",
+                        "R\$ "+ CardModel.of(context).toPrice(product.price.toStringAsFixed(2)),
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: 17,
@@ -84,7 +86,7 @@ class ProductTile extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "R\$ ${product.price.toStringAsFixed(2)}",
+                        "R\$ "+ CardModel.of(context).toPrice(product.price.toStringAsFixed(2)),
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: 17,
