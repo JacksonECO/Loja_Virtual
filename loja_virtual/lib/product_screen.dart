@@ -1,7 +1,12 @@
 import 'dart:ui';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/card_product.dart';
+import 'package:lojavirtual/card_screen.dart';
+import 'package:lojavirtual/login_screen.dart';
 import 'package:lojavirtual/product_dat.dart';
+import 'package:lojavirtual/user_model.dart';
+import 'package:lojavirtual/card_model.dart';
 
 class ProductScreen extends StatefulWidget {
 
@@ -18,6 +23,8 @@ class _ProductScreenState extends State<ProductScreen> {
   _ProductScreenState(this.product);
 
   String modelos;
+
+  final _obscontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -112,8 +119,9 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
                 SizedBox(height: 16,),
                 TextField(
+                  controller: _obscontroller,
                   decoration: InputDecoration(
-                      hintText: "Observações",
+                      labelText: "Observações",
                   ),
                 ),
                 SizedBox(height: 16,),
@@ -124,10 +132,31 @@ class _ProductScreenState extends State<ProductScreen> {
                       textColor: Colors.white,
                       onPressed: modelos != null ?
                       (){//não esquecer do campo de observação.
+                        if(UserModel.of(context).isLoggedIn()){
 
+                          CardProduct cardProduct = CardProduct();
+                          cardProduct.modelo = modelos;
+                          cardProduct.observacao = _obscontroller.text;
+                          cardProduct.quantity = 1;
+                          cardProduct.category = product.category;
+                          cardProduct.pid = product.id;
+
+                          CardModel.of(context).addCartItem(cardProduct);
+
+                          Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context)=>CardScreen())
+                          );
+                        }
+                        else{
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context)=>LoginScreen()
+                            )
+                          );
+                        }
                       } : null,
                       child: Text(
-                        "Adicionar ao Carrinho",
+                        (UserModel.of(context).isLoggedIn()) ? "Adicionar ao Carrinho" : "Entre para Comprar",
                         style: TextStyle(fontSize: 18),
                       ),
                     ),

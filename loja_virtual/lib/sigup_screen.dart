@@ -51,7 +51,7 @@ class SigUp extends StatelessWidget {
                   TextFormField(
                     controller: _nameControlle,
                     decoration: InputDecoration(
-                      hintText: "Nome Completo",
+                      labelText: "Nome Completo",
                     ),
                     validator: (text){
                       if(text.isEmpty)
@@ -64,7 +64,7 @@ class SigUp extends StatelessWidget {
                   TextFormField(
                     controller: _addressControlle,
                     decoration: InputDecoration(
-                      hintText: "Endereço",
+                      labelText: "Endereço",
                     ),
                     validator: (text){
                       if(text.isEmpty)
@@ -78,7 +78,7 @@ class SigUp extends StatelessWidget {
                     controller: _telControlle,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                      hintText: "Número de telefone",
+                      labelText: "Número de telefone",
                     ),
                     validator: (text){
                       if(text.isEmpty || text.length != 11)
@@ -92,7 +92,7 @@ class SigUp extends StatelessWidget {
                     controller: _fotoControlle,
                     autocorrect: false,
                     decoration: InputDecoration(
-                      hintText: "Foto (opcional)",
+                      labelText: "Foto (opcional)",
                     ),
                     validator: (text){
                       if(!text.contains("https://") && !text.isEmpty)
@@ -106,7 +106,7 @@ class SigUp extends StatelessWidget {
                     controller: _emailControlle,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      hintText: "E-mail",
+                      labelText: "E-mail",
                     ),
                     validator: (text){
                       if(text.isEmpty || !text.contains("@"))
@@ -121,7 +121,7 @@ class SigUp extends StatelessWidget {
                     obscureText: true,
                     autocorrect: false,
                     decoration: InputDecoration(
-                      hintText: "Senha",
+                      labelText: "Senha",
                     ),
                     validator: (text){
                       if(text.isEmpty || text.length<0)

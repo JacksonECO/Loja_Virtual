@@ -18,4 +18,12 @@ class ProductData{
     modelos = snapshot.data["modelos"];
   }
 
+  Map<String, dynamic> toResumeMap(){//enviar para o carrinho
+    return {
+      "title": title,
+      "description": description,
+      "price": price
+    };
+  }
+
 }

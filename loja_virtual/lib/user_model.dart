@@ -1,20 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter/material.dart';
 
 class UserModel extends Model{
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  FirebaseUser _firebaseUser;
+  FirebaseUser firebaseUser;
   Map<String, dynamic> userDate = Map();
 
 
   bool isLoading = false;
 
+  //Para poder ter acesso em outra class de Widget sem precisar Usar um ScopedModelDescendant
+  //Usando simplesmente um UserModel.of(context)."nome da funcção"
+  static UserModel of(BuildContext context) => ScopedModel.of<UserModel>(context);
 
   @override
   void addListener(VoidCallback listener){
@@ -31,7 +34,7 @@ class UserModel extends Model{
         email: userDate["email"],
         password: pass
       ).then((value) async{
-        _firebaseUser = value.user;
+        firebaseUser = value.user;
 
         await _saveUserData(userDate);
 
@@ -55,7 +58,7 @@ class UserModel extends Model{
         email: email,
         password: pass
     ).then((value)async{
-      _firebaseUser = value.user;
+      firebaseUser = value.user;
 
       await _loadCurrentUser();
 
@@ -79,7 +82,7 @@ class UserModel extends Model{
       _firebaseAuth.signOut();
 
       userDate = Map();
-      _firebaseUser = null;
+      firebaseUser = null;
       notifyListeners();
     }
     catch(e){
@@ -94,20 +97,20 @@ class UserModel extends Model{
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async{
     this.userDate = userData;
-    await Firestore.instance.collection("users").document(_firebaseUser.uid).setData(userData);
+    await Firestore.instance.collection("users").document(firebaseUser.uid).setData(userData);
   }
 
   bool isLoggedIn(){
-    return _firebaseUser != null;
+    return firebaseUser != null;
   }
 
   Future<Null> _loadCurrentUser() async{
-    if(_firebaseUser == null)
-      _firebaseUser = await _auth.currentUser();
+    if(firebaseUser == null)
+      firebaseUser = await _auth.currentUser();
 
-    if(_firebaseUser != null)
+    if(firebaseUser != null)
       if(userDate["name"] == null){
-        DocumentSnapshot docUser = await Firestore.instance.collection("users").document(_firebaseUser.uid).get();
+        DocumentSnapshot docUser = await Firestore.instance.collection("users").document(firebaseUser.uid).get();
         userDate = docUser.data;
       }
     notifyListeners();
@@ -124,21 +127,21 @@ class UserModel extends Model{
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      _firebaseUser = (await _auth.signInWithCredential(credential)).user;
-      print("signed in " + _firebaseUser.displayName);
+      firebaseUser = (await _auth.signInWithCredential(credential)).user;
+      print("signed in " + firebaseUser.displayName);
 
       Map<String, dynamic> userDate = {
-        "name" : _firebaseUser.displayName,
-        "email" : _firebaseUser.email,
-        "tel": _firebaseUser.phoneNumber,
-        "photo": _firebaseUser.photoUrl
+        "name" : firebaseUser.displayName,
+        "email" : firebaseUser.email,
+        "tel": firebaseUser.phoneNumber,
+        "photo": firebaseUser.photoUrl
       };
 
       await _saveUserData(userDate);
       await _loadCurrentUser();
       onSuccess();
       isLoading=false;
-      return _firebaseUser;
+      return firebaseUser;
     }catch (e) {
       onFail();
       isLoading=false;
@@ -157,21 +160,21 @@ class UserModel extends Model{
           accessToken: result.accessToken.token,
 
         );
-        _firebaseUser = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
-        print('signed in ' + _firebaseUser.displayName);
+        firebaseUser = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+        print('signed in ' + firebaseUser.displayName);
 
         Map<String, dynamic> userDate = {
-          "name" : _firebaseUser.displayName,
-          "email" : _firebaseUser.email,
-          "tel": _firebaseUser.phoneNumber,
-          "photo": _firebaseUser.photoUrl
+          "name" : firebaseUser.displayName,
+          "email" : firebaseUser.email,
+          "tel": firebaseUser.phoneNumber,
+          "photo": firebaseUser.photoUrl
         };
 
         await _saveUserData(userDate);
         await _loadCurrentUser();
         onSuccess();
         isLoading=false;
-        return _firebaseUser;
+        return firebaseUser;
       }
     }catch (e) {
       onFail();
