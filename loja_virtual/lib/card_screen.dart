@@ -5,6 +5,7 @@ import 'package:lojavirtual/card_price.dart';
 import 'package:lojavirtual/card_ship.dart';
 import 'package:lojavirtual/card_tile.dart';
 import 'package:lojavirtual/login_screen.dart';
+import 'package:lojavirtual/order_screen.dart';
 import 'package:lojavirtual/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -91,9 +92,11 @@ class CardScreen extends StatelessWidget {
                 CardPrice(() async{
                   String orderID = await model.finishOrder();
                   if(orderID != null ){
-                    print(orderID);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context)=>OrderScreen(orderID))
+                    );
                   }
-                }),///Como parametro tem uma função que rodará apos clicar em Finalizar pedido
+                }),
             ],
             );
           }

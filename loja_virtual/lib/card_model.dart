@@ -111,7 +111,9 @@ class CardModel extends Model{
 
   Future<String> finishOrder() async{
     if(products.length == 0) return null;
-    
+
+    var time = DateTime.now();
+
     isLoading = true;
     notifyListeners();
     
@@ -120,7 +122,9 @@ class CardModel extends Model{
     double discount = getDiscount();
     
     DocumentReference refOrder = await Firestore.instance.collection("orders").add({
-      "ClientID": user.firebaseUser.uid,
+      "data": time.day.toString() + " / " + (time.month > 9 ? "" : "0") + time.month.toString() + " / " + time.year.toString(),
+      "hora": time.hour.toString() + " : " + time.minute.toString(),
+      "clientID": user.firebaseUser.uid,
       "products": products.map((cartProduct)=> cartProduct.toMap()).toList(),
       "ship": ship,
       "productsPrice": productsPrice,

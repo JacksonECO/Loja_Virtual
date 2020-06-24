@@ -4,6 +4,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomeTab extends StatelessWidget {
+
+  var hora = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     Widget _buildBodyBack() => Container(

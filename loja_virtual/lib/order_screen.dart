@@ -1,0 +1,42 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class OrderScreen extends StatelessWidget {
+
+  final String orderID;
+
+  OrderScreen(this.orderID);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Pedido Realizado"),
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(16),
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(Icons.check,
+              color: Theme.of(context).primaryColor,
+              size: 80,
+            ),
+            Text("Pedido Realizado com sucesso!",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            SizedBox(height: 20),
+            Text("Código do pedido: ",
+              style: TextStyle(fontSize: 18),
+            ),
+            Text(orderID,
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

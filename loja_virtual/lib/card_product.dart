@@ -38,7 +38,7 @@ class CardProduct {
       "quantity": quantity,
       "modelo": modelo,
       "observacao": observacao,
-      //"product": productData.toResumeMap()
+      "product": productData.toResumeMap()
     };
   }
 

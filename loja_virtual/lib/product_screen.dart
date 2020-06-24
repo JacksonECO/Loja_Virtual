@@ -140,6 +140,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           cardProduct.quantity = 1;
                           cardProduct.category = product.category;
                           cardProduct.pid = product.id;
+                          cardProduct.productData = product;
 
                           CardModel.of(context).addCartItem(cardProduct);
 
