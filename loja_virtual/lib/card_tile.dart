@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/card_model.dart';
 import 'package:lojavirtual/card_product.dart';
-import 'package:lojavirtual/product_dat.dart';
+import 'package:lojavirtual/product_data.dart';
 
 class CardTile extends StatelessWidget {
   

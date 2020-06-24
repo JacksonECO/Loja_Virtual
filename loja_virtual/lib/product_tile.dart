@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/product_dat.dart';
+import 'package:lojavirtual/product_data.dart';
 import 'package:lojavirtual/product_screen.dart';
 
 class ProductTile extends StatelessWidget {

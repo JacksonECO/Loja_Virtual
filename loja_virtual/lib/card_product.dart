@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lojavirtual/product_dat.dart';
+import 'package:lojavirtual/product_data.dart';
 
 class CardProduct {
   //Será usado no nosso carrinho de compras

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'home_screen.dart';
+import 'main_screen.dart';
 import 'package:lojavirtual/card_model.dart';
 
 void main() {

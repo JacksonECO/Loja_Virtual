@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/card_product.dart';
 import 'package:lojavirtual/card_screen.dart';
 import 'package:lojavirtual/login_screen.dart';
-import 'package:lojavirtual/product_dat.dart';
+import 'package:lojavirtual/product_data.dart';
 import 'package:lojavirtual/user_model.dart';
 import 'package:lojavirtual/card_model.dart';
 

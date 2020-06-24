@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/card_bottom.dart';
 import 'package:lojavirtual/card_screen.dart';
 import 'package:lojavirtual/products_tab.dart';
-import 'custom_drawer.dart';
-import 'home_tab.dart';
+import 'drawer_custom.dart';
+import 'main_tab.dart';
 
 class HomeScreen extends StatelessWidget {
   final _pagesController = PageController();
