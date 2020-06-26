@@ -51,7 +51,7 @@ class OrderTab extends StatelessWidget {
               textColor: Colors.white,
               color: Theme.of(context).primaryColor,
               onPressed: (){
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                     MaterialPageRoute(builder: (context)=>LoginScreen())
                 );
               },

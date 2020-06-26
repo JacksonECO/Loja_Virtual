@@ -4,14 +4,12 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomeTab extends StatelessWidget {
-
   var hora = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     Widget _buildBodyBack() => Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor
+      decoration: BoxDecoration(color: Theme.of(context).primaryColor
 //        gradient: LinearGradient(
 //            colors: [
 //              Colors.green,
@@ -37,40 +35,43 @@ class HomeTab extends StatelessWidget {
                 centerTitle: true,
               ),
             ),
-        FutureBuilder<QuerySnapshot>(
-          future: Firestore.instance.collection("home").orderBy("pos").getDocuments(),
-          builder: (context,snapshot){
-            if(!snapshot.hasData)
-              return SliverToBoxAdapter(
-                child: Container(
-                  height: 200,
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-                ),
-              );
-            else
-              return SliverStaggeredGrid.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 1,
-                crossAxisSpacing: 1,
-                staggeredTiles: snapshot.data.documents.map( (e){
-                  return StaggeredTile.count(e.data["x"], e.data["y"].hashCode
+            FutureBuilder<QuerySnapshot>(
+              future: Firestore.instance
+                  .collection("home")
+                  .orderBy("pos")
+                  .getDocuments(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData)
+                  return SliverToBoxAdapter(
+                    child: Container(
+                      height: 200,
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    ),
                   );
-                }).toList(),
-                children: snapshot.data.documents.map((e){
-                  return FadeInImage.memoryNetwork(
-                      placeholder: kTransparentImage,
-                      image: e.data["img"],
-                      fit: BoxFit.cover,
+                else
+                  return SliverStaggeredGrid.count(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 1,
+                    staggeredTiles: snapshot.data.documents.map((e) {
+                      return StaggeredTile.count(
+                          e.data["x"], e.data["y"].hashCode);
+                    }).toList(),
+                    children: snapshot.data.documents.map((e) {
+                      return FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: e.data["img"],
+                        fit: BoxFit.cover,
+                      );
+                    }).toList(),
                   );
-                }).toList(),
-              );
-          },
+              },
+            ),
+          ],
         ),
-       ],
-      ),
       ],
     );
   }
