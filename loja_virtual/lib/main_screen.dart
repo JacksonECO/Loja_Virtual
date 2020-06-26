@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/card_bottom.dart';
 import 'package:lojavirtual/order_tab.dart';
+import 'package:lojavirtual/places_tab.dart';
 import 'package:lojavirtual/products_tab.dart';
 import 'drawer_custom.dart';
 import 'main_tab.dart';
@@ -25,13 +26,20 @@ class HomeScreen extends StatelessWidget {
         Scaffold(
           body: HomeTab(),
           drawer: CustomDrawer(_pagesController),
+          floatingActionButton: CardBottom(),
         ),
 
 
 
         Scaffold(
-          body: HomeTab(),
+          appBar: AppBar(
+            title: Text("Lojas"),
+            centerTitle: true,
+            elevation: 5,
+          ),
+          body: PlacesTab(),
           drawer: CustomDrawer(_pagesController),
+          floatingActionButton: CardBottom(),
         ),
         Scaffold(
           appBar: AppBar(
@@ -40,6 +48,7 @@ class HomeScreen extends StatelessWidget {
           ),
           body: OrderTab(),
           drawer: CustomDrawer(_pagesController),
+          floatingActionButton: CardBottom(),
         ),
       ],
     );

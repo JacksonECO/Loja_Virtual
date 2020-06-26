@@ -5,6 +5,7 @@ import 'package:lojavirtual/order_tile.dart';
 import 'package:lojavirtual/user_model.dart';
 
 class OrderTab extends StatelessWidget {
+
   @override
   Widget build(BuildContext context){
     if(UserModel.of(context).isLoggedIn()){
@@ -20,7 +21,7 @@ class OrderTab extends StatelessWidget {
           }
           else{
             return ListView(
-              children: snapshot.data.documents.map((doc)=>OrderTile(doc.documentID)).toList(),
+                 children: snapshot.data.documents.map((doc)=>OrderTile(doc.documentID)).toList(),
             );
           }
         },
