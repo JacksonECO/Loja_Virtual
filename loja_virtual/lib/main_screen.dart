@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/card_bottom.dart';
-import 'package:lojavirtual/card_screen.dart';
+import 'package:lojavirtual/order_tab.dart';
 import 'package:lojavirtual/products_tab.dart';
 import 'drawer_custom.dart';
 import 'main_tab.dart';
@@ -34,7 +34,11 @@ class HomeScreen extends StatelessWidget {
           drawer: CustomDrawer(_pagesController),
         ),
         Scaffold(
-          body: CardScreen(),
+          appBar: AppBar(
+            title: Text("Meus Pedidos"),
+            centerTitle: true,
+          ),
+          body: OrderTab(),
           drawer: CustomDrawer(_pagesController),
         ),
       ],

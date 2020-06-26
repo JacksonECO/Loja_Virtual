@@ -56,7 +56,7 @@ class CardScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16,),
                   RaisedButton(
-                    child: Text("Ir para Login",
+                    child: Text("Ir para tela Login",
                           style: TextStyle(fontSize: 18),),
                     textColor: Colors.white,
                     color: Theme.of(context).primaryColor,

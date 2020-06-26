@@ -120,6 +120,7 @@ class CustomDrawer extends StatelessWidget {
               Divider(),
               DrawerTile(Icons.playlist_add_check, "Meus Pedidos", _pagesController, 3),
               Divider(),
+              SizedBox(height: 50),
               //SizedBox(height: 150,child: Container(color: Colors.transparent,),),
             ],
           ),

@@ -122,8 +122,8 @@ class CardModel extends Model{
     double discount = getDiscount();
     
     DocumentReference refOrder = await Firestore.instance.collection("orders").add({
-      "data": time.day.toString() + " / " + (time.month > 9 ? "" : "0") + time.month.toString() + " / " + time.year.toString(),
-      "hora": time.hour.toString() + " : " + time.minute.toString(),
+      "data": time.day.toString() + "/" + (time.month > 9 ? "" : "0") + time.month.toString() + "/" + time.year.toString(),
+      "hora": (time.hour < 10 ? "0" : "") + time.hour.toString() + ":" + (time.minute < 10 ? "0" : "") + time.minute.toString(),
       "clientID": user.firebaseUser.uid,
       "products": products.map((cartProduct)=> cartProduct.toMap()).toList(),
       "ship": ship,
@@ -136,6 +136,14 @@ class CardModel extends Model{
     Firestore.instance.collection("users").document(user.firebaseUser.uid).collection("orders")
         .document(refOrder.documentID).setData({
       "orderID": refOrder.documentID,
+      "time": (time.hour   < 10 ? "0" : "") + time.hour.  toString() +" - "+
+              (time.minute < 10 ? "0" : "") + time.minute.toString() + ":" +
+              (time.second < 10 ? "0" : "") + time.second.toString() + ":" +
+              (time.day    < 10 ? "0" : "") + time.day.   toString() + "/" +
+              (time.month  < 10 ? "0" : "") + time.month. toString() + "/" +
+                                              time.year.  toString()
+              //Para poder ordenar em função do tempo na aba meus pedidos
+              //Por isso a ordem invertida
     });
     
     QuerySnapshot querySnapshot = await Firestore.instance.collection("users")
