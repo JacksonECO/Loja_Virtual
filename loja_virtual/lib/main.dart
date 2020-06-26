@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               title: "Jackson's Store",
               theme: ThemeData(
-                primarySwatch: Colors.blue,
+                //primarySwatch: Colors.blue,
                 primaryColor: Color.fromARGB(255, 4, 125, 141),
               ),
               home: HomeScreen(),
