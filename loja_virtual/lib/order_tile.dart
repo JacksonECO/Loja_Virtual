@@ -6,81 +6,112 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/card_model.dart';
 
 class OrderTile extends StatelessWidget {
-
   String orderID;
   OrderTile(this.orderID);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-      child: Padding(
-        padding: EdgeInsets.all(8),
-        child: StreamBuilder<DocumentSnapshot>(
-          stream: Firestore.instance.collection("orders").document(orderID).snapshots(),
-          builder: (context, snapshot){
-            if(!snapshot.hasData){
-              return Center(child: CircularProgressIndicator());
-            }
-            else{
-              int status = snapshot.data["status"];
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("Código do pedido: " + snapshot.data.documentID,
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                  SizedBox(height: 4),
-                  Text(snapshot.data["data"] + " - " + snapshot.data["hora"],
-                  ),
-                  SizedBox(height: 6),
-                  Text("Descrição:",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: 2),
-                  Text(_buildProductsText(snapshot.data, context)),
-                  SizedBox(height: 6),
-                  Text(
-                    "Status do Pedido:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 4.0,),
-                  _staus(status, context),
+        elevation: 5,
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: StreamBuilder<DocumentSnapshot>(
+            stream: Firestore.instance
+                .collection("orders")
+                .document(orderID)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                int status = snapshot.data["status"];
+                return Stack(
+                  children: [
+                    Container(
+                      child: Positioned(
+                          right: 8,
+                          top: 15,
+                          child: Opacity(
+                            opacity: 0.3,
+                            child: Image.asset("images/logo_empresa.png", color: Colors.black,width: 60),
+                          ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Código do pedido: " + snapshot.data.documentID,
+                          style: TextStyle(fontWeight: FontWeight.w800),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          snapshot.data["data"] + " - " + snapshot.data["hora"],
+                        ),
+                        SizedBox(height: 6),
+                        Text(
+                          "Descrição:",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 2),
+                        Text(_buildProductsText(snapshot.data, context)),
+                        SizedBox(height: 6),
+                        Text(
+                          "Status do Pedido:",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 4.0,
+                        ),
+                        _staus(status, context),
+                      ],
+                    ),
                   ],
-              );
-            }
-          },
-        ),
-      )
-    );
+                );
+              }
+            },
+          ),
+        ));
   }
 
-  String _buildProductsText(DocumentSnapshot snapshot, var context){
+  String _buildProductsText(DocumentSnapshot snapshot, var context) {
     String text = "";
-    for(LinkedHashMap p in snapshot.data["products"]){
-      text += p["quantity"].toString() + " x " +
-              p["product"]["title"].toString() + " (R\$ " +
-              CardModel.of(context).toPrice(p["product"]["price"].toStringAsFixed(2)) + ")\n";
+    for (LinkedHashMap p in snapshot.data["products"]) {
+      text += p["quantity"].toString() +
+          " x " +
+          p["product"]["title"].toString() +
+          " (R\$ " +
+          CardModel.of(context)
+              .toPrice(p["product"]["price"].toStringAsFixed(2)) +
+          ")\n";
     }
-    text += "Total: R\$ " + CardModel.of(context).toPrice(snapshot.data["totalPrice"].toStringAsFixed(2));
+    text += "Total: R\$ " +
+        CardModel.of(context)
+            .toPrice(snapshot.data["totalPrice"].toStringAsFixed(2));
     return text;
   }
 
-  Widget _buildCircle(String title, String subtitle, int status, int thisStatus){
-
+  Widget _buildCircle(
+      String title, String subtitle, int status, int thisStatus) {
     Color backColor;
     Widget child;
 
-    if(status < thisStatus){
+    if (status < thisStatus) {
       backColor = Colors.grey[500];
-      child = Text(title, style: TextStyle(color: Colors.white),);
-    } else if (status == thisStatus){
+      child = Text(
+        title,
+        style: TextStyle(color: Colors.white),
+      );
+    } else if (status == thisStatus) {
       backColor = Colors.blue;
       child = Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Text(title, style: TextStyle(color: Colors.white),),
+          Text(
+            title,
+            style: TextStyle(color: Colors.white),
+          ),
           CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           )
@@ -88,7 +119,10 @@ class OrderTile extends StatelessWidget {
       );
     } else {
       backColor = Colors.green;
-      child = Icon(Icons.check, color: Colors.white,);
+      child = Icon(
+        Icons.check,
+        color: Colors.white,
+      );
     }
 
     return Column(
@@ -103,8 +137,8 @@ class OrderTile extends StatelessWidget {
     );
   }
 
-  Widget _staus(int status, BuildContext context){
-    if(status < 2)
+  Widget _staus(int status, BuildContext context) {
+    if (status < 2)
       return Column(
         children: [
           Row(
@@ -130,49 +164,49 @@ class OrderTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               RaisedButton(
-                child: Text("Cancelar"),
-                onPressed:() {
-                  return showDialog(
-                      context: context,
-                      builder: (context){
-                        return AlertDialog(
-                          title: Text("Cancelar Pedido"),
-                          content: Text("Tem certeza que deseja cancelar o pedido."),
-                          actions: [
-                            FlatButton(
-                              child: Text("Sim"),
-                              onPressed: () {
-                                Firestore.instance.collection("orders").document(orderID).updateData({
-                                  "status": 404,
-                                });
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            FlatButton(
-                                child: Text("Não"),
+                  child: Text("Cancelar"),
+                  onPressed: () {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("Cancelar Pedido"),
+                            content: Text(
+                                "Tem certeza que deseja cancelar o pedido."),
+                            actions: [
+                              FlatButton(
+                                child: Text("Sim"),
                                 onPressed: () {
+                                  Firestore.instance
+                                      .collection("orders")
+                                      .document(orderID)
+                                      .updateData({
+                                    "status": 404,
+                                  });
                                   Navigator.of(context).pop();
-                                }
-                            ),
-                          ],
-                        );
-                      }
-                  );
-                }
-              )
+                                },
+                              ),
+                              FlatButton(
+                                  child: Text("Não"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  }),
+                            ],
+                          );
+                        });
+                  })
             ],
           )
         ],
       );
-    else if(status == 404)
+    else if (status == 404)
       return Align(
         child: Text(
           "Pedido Cancelado",
           style: TextStyle(color: Colors.red),
         ),
-    );
-
-    else{
+      );
+    else {
       return Column(
         children: [
           Row(
