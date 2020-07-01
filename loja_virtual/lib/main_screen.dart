@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/card_bottom.dart';
+import 'package:lojavirtual/contact_us_screen.dart';
 import 'package:lojavirtual/order_tab.dart';
 import 'package:lojavirtual/places_tab.dart';
 import 'package:lojavirtual/products_tab.dart';
@@ -47,6 +48,13 @@ class HomeScreen extends StatelessWidget {
             centerTitle: true,
           ),
           body: OrderTab(),
+          drawer: CustomDrawer(_pagesController),
+          floatingActionButton: CardBottom(),
+        ),
+
+        Scaffold(
+          appBar: AppBar(title: Text("Fale conosco"), centerTitle: true),
+          body: ContactUsScreen(),
           drawer: CustomDrawer(_pagesController),
           floatingActionButton: CardBottom(),
         ),
