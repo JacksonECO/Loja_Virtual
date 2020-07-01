@@ -11,3 +11,8 @@ Criado durante capacitação na Asimov Jr.
 <img src="img5.jpg" width="200"/>
 <img src="img6.jpg" width="200"/>
 <img src="img7.jpg" width="200"/>
+<img src="img8.jpg" width="200"/>
+<img src="img9.jpg" width="200"/>
+<img src="img10.jpg" width="200"/>
+<img src="img11.jpg" width="200"/>
+<img src="img12.jpg" width="200"/>
