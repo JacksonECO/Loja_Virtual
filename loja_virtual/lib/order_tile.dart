@@ -46,25 +46,8 @@ class OrderTile extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 4.0,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _buildCircle("1", "Preparação", status, 1),
-                      Container(
-                        height: 1.0,
-                        width: 40.0,
-                        color: Colors.grey[500],
-                      ),
-                      _buildCircle("2", "Transporte", status, 2),
-                      Container(
-                        height: 1.0,
-                        width: 40.0,
-                        color: Colors.grey[500],
-                      ),
-                      _buildCircle("3", "Entrega", status, 3),
-                    ],
-                  )
-                ],
+                  _staus(status, context),
+                  ],
               );
             }
           },
@@ -118,5 +101,100 @@ class OrderTile extends StatelessWidget {
         Text(subtitle)
       ],
     );
+  }
+
+  Widget _staus(int status, BuildContext context){
+    if(status < 2)
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _buildCircle("1", "Preparação", status, 1),
+              Container(
+                height: 1.0,
+                width: 40.0,
+                color: Colors.grey[500],
+              ),
+              _buildCircle("2", "Transporte", status, 2),
+              Container(
+                height: 1.0,
+                width: 40.0,
+                color: Colors.grey[500],
+              ),
+              _buildCircle("3", "Entrega", status, 3),
+            ],
+          ),
+          SizedBox(height: 6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              RaisedButton(
+                child: Text("Cancelar"),
+                onPressed:() {
+                  return showDialog(
+                      context: context,
+                      builder: (context){
+                        return AlertDialog(
+                          title: Text("Cancelar Pedido"),
+                          content: Text("Tem certeza que deseja cancelar o pedido."),
+                          actions: [
+                            FlatButton(
+                              child: Text("Sim"),
+                              onPressed: () {
+                                Firestore.instance.collection("orders").document(orderID).updateData({
+                                  "status": 404,
+                                });
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                                child: Text("Não"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                }
+                            ),
+                          ],
+                        );
+                      }
+                  );
+                }
+              )
+            ],
+          )
+        ],
+      );
+    else if(status == 404)
+      return Align(
+        child: Text(
+          "Pedido Cancelado",
+          style: TextStyle(color: Colors.red),
+        ),
+    );
+
+    else{
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _buildCircle("1", "Aceitação", status, 1),
+              Container(
+                height: 1.0,
+                width: 40.0,
+                color: Colors.grey[500],
+              ),
+              _buildCircle("2", "Transporte", status, 2),
+              Container(
+                height: 1.0,
+                width: 40.0,
+                color: Colors.grey[500],
+              ),
+              _buildCircle("3", "Entrega", status, 3),
+            ],
+          ),
+        ],
+      );
+    }
   }
 }

@@ -20,8 +20,25 @@ class OrderTab extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
           else{
-            return ListView(
-                 children: snapshot.data.documents.map((doc)=>OrderTile(doc.documentID)).toList(),
+            return Stack(
+              children: <Widget>[
+                ListView(
+                  children: snapshot.data.documents.map((doc)=>OrderTile(doc.documentID)).toList(),
+                ),
+
+                Align(
+                  child: Opacity(
+                    opacity: 0.3,
+                    child: Container(
+                      height: 200,
+                      child: Image.asset("images/asimov_publi.png",
+                        fit: BoxFit.cover,
+                        //color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                )
+              ]
             );
           }
         },

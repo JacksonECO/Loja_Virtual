@@ -12,8 +12,7 @@ class CardShip extends StatelessWidget {
             color: Colors.grey[700],
           ),
         ),
-        leading: Icon(Icons.card_giftcard),
-        trailing: Icon(Icons.add),
+        leading: Icon(Icons.location_on),
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(8),
