@@ -144,9 +144,25 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.blue[900],
                       padding: EdgeInsets.all(10),
                       onPressed: () {
+                        model.isLoading = true;
                          model.signUpWithFacebook(
                              onSuccess: (){
-                               Navigator.of(context).pop();
+                               if(model.userDate["ok"] == null)
+                               Navigator.of(context).pushReplacement(
+                                   MaterialPageRoute(builder: (context)=>SigUp())
+
+                               );
+                               else {
+                                 _scaffoldKey.currentState.showSnackBar(
+                                     SnackBar(
+                                       content: Text("Bem vindo " +
+                                           model.userDate["name"]),
+                                       backgroundColor: Colors.red,
+                                       duration: Duration(seconds: 2),
+                                     )
+                                 );
+                                 Navigator.of(context).pop();
+                               }
                              },
                              onFail: (){
                                _scaffoldKey.currentState.showSnackBar(
@@ -157,6 +173,7 @@ class LoginScreen extends StatelessWidget {
                                    )
                                );
                              });
+                         model.isLoading = false;
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -192,9 +209,26 @@ class LoginScreen extends StatelessWidget {
                       color: Colors.white,
                       padding: EdgeInsets.all(10),
                       onPressed: () {
+                        model.isLoading = true;
                         model.googleSignUp(
                           onSuccess: (){
-                            Navigator.of(context).pop();
+                            if(model.userDate["ok"] == null)
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (context)=>SigUp())
+
+                              );
+                            else {
+                              _scaffoldKey.currentState.showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "Bem vindo " + model.userDate["name"]),
+                                    backgroundColor: Colors.red,
+                                    duration: Duration(seconds: 2),
+                                  )
+                              );
+                              Navigator.of(context).pop();
+                            }
+
                           },
                           onFail: (){
                             _scaffoldKey.currentState.showSnackBar(
@@ -206,6 +240,7 @@ class LoginScreen extends StatelessWidget {
                             );
                         }
                         );
+                        model.isLoading = false;
                       },
                     ),
                   ),

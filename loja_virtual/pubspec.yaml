@@ -37,6 +37,7 @@ dependencies:
   url_launcher: ^5.4.11
   flutter_facebook_login: ^3.0.0
   google_sign_in: ^4.5.1
+  flutter_correios: ^1.0.2
 
 dev_dependencies:
   flutter_test:

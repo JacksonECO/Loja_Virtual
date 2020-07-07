@@ -118,7 +118,7 @@ class UserModel extends Model{
 
   Future<void> googleSignUp({@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
     try {
-      isLoading=true;
+      //isLoading=true;
       final GoogleSignIn _googleSignIn = GoogleSignIn();
       final FirebaseAuth _auth = FirebaseAuth.instance;
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -140,7 +140,7 @@ class UserModel extends Model{
       await _saveUserData(userDate);
       await _loadCurrentUser();
       onSuccess();
-      isLoading=false;
+      //isLoading=false;
       return firebaseUser;
     }catch (e) {
       onFail();
@@ -151,7 +151,7 @@ class UserModel extends Model{
 
   Future<void> signUpWithFacebook({@required VoidCallback onSuccess, @required VoidCallback onFail}) async{
     try {
-      isLoading=true;
+      //isLoading=true;
       var facebookLogin = new FacebookLogin();
       var result = await facebookLogin.logIn(['email']);
 
@@ -163,14 +163,14 @@ class UserModel extends Model{
         firebaseUser = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
         print('signed in ' + firebaseUser.displayName);
 
-        Map<String, dynamic> userDate = {
-          "name" : firebaseUser.displayName,
-          "email" : firebaseUser.email,
-          "tel": firebaseUser.phoneNumber,
-          "photo": firebaseUser.photoUrl
-        };
-
-        await _saveUserData(userDate);
+//        Map<String, dynamic> userDate = {
+//          "name" : firebaseUser.displayName,
+//          "email" : firebaseUser.email,
+//          "tel": firebaseUser.phoneNumber,
+//          "photo": firebaseUser.photoUrl
+//        };
+//
+//        await _saveUserData(userDate);
         await _loadCurrentUser();
         onSuccess();
         isLoading=false;
@@ -178,9 +178,19 @@ class UserModel extends Model{
       }
     }catch (e) {
       onFail();
-      isLoading=false;
+      //isLoading=false;
       print(e.message);
     }
   }
 
+  Future<void> complement(Map<String, dynamic> userData) async {
+    try{
+      await _saveUserData(userDate);
+      await _loadCurrentUser();
+    }
+    catch(e){
+      print(e);
+    }
+
+  }
 }

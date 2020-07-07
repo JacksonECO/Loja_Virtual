@@ -144,7 +144,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
                           CardModel.of(context).addCartItem(cardProduct);
 
-                          Navigator.of(context).push(
+                          Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context)=>CardScreen())
                           );
                         }
