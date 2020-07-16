@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/card_discount.dart';
-import 'package:lojavirtual/card_model.dart';
-import 'package:lojavirtual/card_price.dart';
-import 'package:lojavirtual/card_ship.dart';
-import 'package:lojavirtual/card_tile.dart';
-import 'package:lojavirtual/login_screen.dart';
-import 'package:lojavirtual/order_screen.dart';
-import 'package:lojavirtual/user_model.dart';
+import 'package:lojavirtual/Meus_Pedidos/order_screen.dart';
+import 'package:lojavirtual/Model/card_model.dart';
+import 'card_discount.dart';
+import 'card_price.dart';
+import 'card_ship.dart';
+import 'card_tile.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Login/login_screen.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CardScreen extends StatelessWidget {

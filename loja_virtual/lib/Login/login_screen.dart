@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/login_sigup_screen.dart';
-import 'package:lojavirtual/user_model.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Login/login_sigup_screen.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class LoginScreen extends StatelessWidget {

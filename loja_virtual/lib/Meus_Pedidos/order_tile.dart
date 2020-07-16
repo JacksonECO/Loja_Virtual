@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/card_model.dart';
+import 'package:lojavirtual/Model/card_model.dart';
 
 class OrderTile extends StatelessWidget {
   String orderID;
@@ -65,6 +65,7 @@ class OrderTile extends StatelessWidget {
                           height: 4.0,
                         ),
                         _staus(status, context),
+                        Image.network("https://marquesfernandes.com/wp-content/uploads/2020/03/alexander-popov-iQqqo2zpmTI-unsplash-scaled.jpg"),
                       ],
                     ),
                   ],

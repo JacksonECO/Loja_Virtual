@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/card_model.dart';
+import 'package:lojavirtual/Model/card_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CardPrice extends StatelessWidget {

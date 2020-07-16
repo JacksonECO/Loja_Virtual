@@ -1,12 +1,12 @@
 import 'dart:ui';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/card_product.dart';
-import 'package:lojavirtual/card_screen.dart';
-import 'package:lojavirtual/login_screen.dart';
-import 'package:lojavirtual/product_data.dart';
-import 'package:lojavirtual/user_model.dart';
-import 'package:lojavirtual/card_model.dart';
+import 'package:lojavirtual/Carrinho/card_product.dart';
+import 'package:lojavirtual/Carrinho/card_screen.dart';
+import 'package:lojavirtual/Model/card_model.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Login/login_screen.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Model/user_model.dart';
+import 'package:lojavirtual/Produtos/product_data.dart';
 
 class ProductScreen extends StatefulWidget {
 

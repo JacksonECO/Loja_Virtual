@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/category_tile.dart';
+
+import 'category_tile.dart';
 
 class ProductsTab extends StatelessWidget {
   @override

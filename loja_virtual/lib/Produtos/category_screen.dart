@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/product_data.dart';
-import 'package:lojavirtual/product_tile.dart';
+import 'package:lojavirtual/Produtos/product_data.dart';
+import 'package:lojavirtual/Produtos/product_tile.dart';
+
 
 class CategoryScreen extends StatelessWidget {
 

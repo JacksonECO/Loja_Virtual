@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/product_data.dart';
-import 'package:lojavirtual/product_screen.dart';
-
-import 'card_model.dart';
+import 'package:lojavirtual/Model/card_model.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Produtos/product_screen.dart';
+import 'package:lojavirtual/Produtos/product_data.dart';
 
 class ProductTile extends StatelessWidget {
 

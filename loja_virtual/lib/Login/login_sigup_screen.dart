@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_correios/model/resultado_cep.dart';
-import 'package:lojavirtual/user_model.dart';
+import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_correios/flutter_correios.dart';
 
