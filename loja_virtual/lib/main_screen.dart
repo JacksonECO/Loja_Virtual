@@ -5,7 +5,7 @@ import 'Carrinho/card_bottom.dart';
 import 'Meus_Pedidos/order_tab.dart';
 import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Produtos/products_tab.dart';
 import 'Drawer/drawer_custom.dart';
-import 'main_tab.dart';
+import 'novidades.dart';
 
 class HomeScreen extends StatelessWidget {
   final _pagesController = PageController();
