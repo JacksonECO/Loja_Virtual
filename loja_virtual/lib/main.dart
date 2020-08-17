@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'Model/card_model.dart';
-import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Model/user_model.dart';
+import 'package:lojavirtual/Model/card_model.dart';
+import 'package:lojavirtual/Model/user_model.dart';
+import 'package:lojavirtual/main_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'main_screen.dart';
 
 void main() {
   runApp(MyApp());

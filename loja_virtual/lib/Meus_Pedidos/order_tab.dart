@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Login/login_screen.dart';
-import 'file:///C:/Users/maio/Documents/GitHub/Loja_Virtual/loja_virtual/lib/Model/user_model.dart';
-import 'order_tile.dart';
+import 'package:lojavirtual/Login/login_screen.dart';
+import 'package:lojavirtual/Meus_Pedidos/order_tile.dart';
+import 'package:lojavirtual/Model/user_model.dart';
 
 class OrderTab extends StatelessWidget {
 

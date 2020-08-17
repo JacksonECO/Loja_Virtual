@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'card_screen.dart';
+import 'package:lojavirtual/Carrinho/card_screen.dart';
 
 class CardBottom extends StatelessWidget {
   @override
