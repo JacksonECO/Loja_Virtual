@@ -137,7 +137,7 @@ class ContactUsScreen extends StatelessWidget {
                               (UserModel.of(context).firebaseUser == null ? "" : UserModel.of(context).firebaseUser.uid),
                               _menControlle.text);
 
-                          await Firestore.instance
+                          await FirebaseFirestore.instance
                               .collection("message")
                               .add(men.toMap());
 

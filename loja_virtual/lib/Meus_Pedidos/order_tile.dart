@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,15 +16,15 @@ class OrderTile extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: StreamBuilder<DocumentSnapshot>(
-            stream: Firestore.instance
+            stream: FirebaseFirestore.instance
                 .collection("orders")
-                .document(orderID)
+                .doc(orderID)
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(child: CircularProgressIndicator());
               } else {
-                int status = snapshot.data["status"];
+                int status = snapshot.data.data()["status"];
                 return Stack(
                   children: [
                     Container(
@@ -42,12 +41,12 @@ class OrderTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Código do pedido: " + snapshot.data.documentID,
+                          "Código do pedido: " + snapshot.data.id,
                           style: TextStyle(fontWeight: FontWeight.w800),
                         ),
                         SizedBox(height: 4),
                         Text(
-                          snapshot.data["data"] + " - " + snapshot.data["hora"],
+                          snapshot.data.data()["data"] + " - " + snapshot.data.data()["hora"],
                         ),
                         SizedBox(height: 6),
                         Text(
@@ -78,7 +77,7 @@ class OrderTile extends StatelessWidget {
 
   String _buildProductsText(DocumentSnapshot snapshot, var context) {
     String text = "";
-    for (LinkedHashMap p in snapshot.data["products"]) {
+    for (LinkedHashMap p in snapshot.data()["products"]) {
       text += p["quantity"].toString() +
           " x " +
           p["product"]["title"].toString() +
@@ -89,7 +88,7 @@ class OrderTile extends StatelessWidget {
     }
     text += "Total: R\$ " +
         CardModel.of(context)
-            .toPrice(snapshot.data["totalPrice"].toStringAsFixed(2));
+            .toPrice(snapshot.data()["totalPrice"].toStringAsFixed(2));
     return text;
   }
 
@@ -178,10 +177,10 @@ class OrderTile extends StatelessWidget {
                               FlatButton(
                                 child: Text("Sim"),
                                 onPressed: () {
-                                  Firestore.instance
+                                  FirebaseFirestore.instance
                                       .collection("orders")
-                                      .document(orderID)
-                                      .updateData({
+                                      .doc(orderID)
+                                      .update({
                                     "status": 404,
                                   });
                                   Navigator.of(context).pop();

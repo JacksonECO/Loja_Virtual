@@ -22,12 +22,12 @@ class CardProduct {
   DocumentSnapshot salve;
 
   CardProduct.fromDocument(DocumentSnapshot document){
-    cid = document.documentID;
-    category = document.data["category"];
-    pid = document.data["pid"];
-    modelo = document.data["modelo"];
-    quantity = document.data["quantity"];
-    observacao = document.data["observacao"];
+    cid = document.id;
+    category = document.data()["category"];
+    pid = document.data()["pid"];
+    modelo = document.data()["modelo"];
+    quantity = document.data()["quantity"];
+    observacao = document.data()["observacao"];
     salve = document;
   }
 

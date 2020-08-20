@@ -18,8 +18,8 @@ class CategoryTile extends StatelessWidget {
     };
     return ListTile(
       contentPadding: EdgeInsets.only(top: 7, left: 10, bottom: 7,right: 7),
-      leading: icon[snapshot.data["lable"].toString().toLowerCase()],
-      title: Text(snapshot.data["lable"]),
+      leading: icon[snapshot.data()["lable"].toString().toLowerCase()],
+      title: Text(snapshot.data()["lable"]),
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: (){
         Navigator.of(context).push(

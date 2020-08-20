@@ -16,7 +16,7 @@ class CategoryScreen extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(snapshot.data["lable"]),
+            title: Text(snapshot.data()["lable"]),
             centerTitle: true,
             bottom: TabBar(
                 indicatorColor: Colors.white,
@@ -27,7 +27,7 @@ class CategoryScreen extends StatelessWidget {
             ),
           ),
           body: FutureBuilder<QuerySnapshot>(
-            future: Firestore.instance.collection("products").document(snapshot.documentID).collection("itens").getDocuments(),
+            future: FirebaseFirestore.instance.collection("products").doc(snapshot.id).collection("itens").get(),
             builder: (context,snapshot){
               print(snapshot);
               if(!snapshot.hasData)
@@ -44,10 +44,10 @@ class CategoryScreen extends StatelessWidget {
                             crossAxisSpacing: 4,
                             childAspectRatio: 0.65,
                         ),
-                        itemCount: snapshot.data.documents.length,
+                        itemCount: snapshot.data.docs.length,
                         itemBuilder: (context, index){
-                          ProductData data = ProductData.fromDocument(snapshot.data.documents[index]);
-                          data.category = this.snapshot.documentID;
+                          ProductData data = ProductData.fromDocument(snapshot.data.docs[index]);
+                          data.category = this.snapshot.id;
 
                           return ProductTile("grid", data);
                         },
@@ -58,12 +58,12 @@ class CategoryScreen extends StatelessWidget {
                       ListView.builder(
                           padding: EdgeInsets.all(4),
                           itemBuilder:  (context, index){
-                            ProductData data = ProductData.fromDocument(snapshot.data.documents[index]);
-                            data.category = this.snapshot.documentID;
+                            ProductData data = ProductData.fromDocument(snapshot.data.docs[index]);
+                            data.category = this.snapshot.id;
 
                             return ProductTile("list", data);
                           },
-                          itemCount: snapshot.data.documents.length,
+                          itemCount: snapshot.data.docs.length,
                       )
                     ]
                 );

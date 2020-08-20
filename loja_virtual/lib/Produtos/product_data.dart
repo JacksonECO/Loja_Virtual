@@ -10,12 +10,12 @@ class ProductData{
   List modelos, images;
 
   ProductData.fromDocument(DocumentSnapshot snapshot){
-    id = snapshot.documentID;
-    title = snapshot.data["title"];
-    description = snapshot.data["description"];
-    price = snapshot.data["price"] + 0.0;
-    images = snapshot.data["images"];
-    modelos = snapshot.data["modelos"];
+    id = snapshot.id;
+    title = snapshot.data()["title"];
+    description = snapshot.data()["description"];
+    price = snapshot.data()["price"] + 0.0;
+    images = snapshot.data()["images"];
+    modelos = snapshot.data()["modelos"];
   }
 
   Map<String, dynamic> toResumeMap(){//enviar para o carrinho

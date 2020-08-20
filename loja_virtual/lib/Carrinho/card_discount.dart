@@ -26,9 +26,9 @@ class CardDiscount extends StatelessWidget {
               ),
               //initialValor inicia o campo com um texto setado
               onFieldSubmitted: (text){
-                Firestore.instance.collection("coupons").document(text).get().then((docSnap){
+                FirebaseFirestore.instance.collection("coupons").doc(text).get().then((docSnap){
                   if(docSnap.data != null){
-                    int temp = docSnap.data["percent"];
+                    int temp = docSnap.data()["percent"];
                     CardModel.of(context).setCoupon(text, temp);
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text("Desconto de "+ temp.toString() +"% aplicado!"),

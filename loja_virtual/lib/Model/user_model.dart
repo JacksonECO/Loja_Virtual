@@ -9,7 +9,9 @@ class UserModel extends Model{
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  FirebaseUser firebaseUser;
+  //FirebaseFirestore firebaseUser;
+  User firebaseUser;
+
   Map<String, dynamic> userDate = Map();
 
 
@@ -97,7 +99,7 @@ class UserModel extends Model{
 
   Future<Null> _saveUserData(Map<String, dynamic> userData) async{
     this.userDate = userData;
-    await Firestore.instance.collection("users").document(firebaseUser.uid).setData(userData);
+    await FirebaseFirestore.instance.collection("users").doc(firebaseUser.uid).set(userData);
   }
 
   bool isLoggedIn(){
@@ -106,12 +108,12 @@ class UserModel extends Model{
 
   Future<Null> _loadCurrentUser() async{
     if(firebaseUser == null)
-      firebaseUser = await _auth.currentUser();
+      firebaseUser =  _auth.currentUser;
 
     if(firebaseUser != null)
       if(userDate["name"] == null){
-        DocumentSnapshot docUser = await Firestore.instance.collection("users").document(firebaseUser.uid).get();
-        userDate = docUser.data;
+        DocumentSnapshot docUser = await FirebaseFirestore.instance.collection("users").doc(firebaseUser.uid).get();
+        userDate = docUser.data();
       }
     notifyListeners();
   }
@@ -123,7 +125,7 @@ class UserModel extends Model{
       final FirebaseAuth _auth = FirebaseAuth.instance;
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
@@ -134,7 +136,7 @@ class UserModel extends Model{
         "name" : firebaseUser.displayName,
         "email" : firebaseUser.email,
         "tel": firebaseUser.phoneNumber,
-        "photo": firebaseUser.photoUrl
+        "photo": firebaseUser.photoURL
       };
 
       await _saveUserData(userDate);
@@ -156,10 +158,8 @@ class UserModel extends Model{
       var result = await facebookLogin.logIn(['email']);
 
       if(result.status == FacebookLoginStatus.loggedIn) {
-        final AuthCredential credential = FacebookAuthProvider.getCredential(
-          accessToken: result.accessToken.token,
+        final AuthCredential credential = FacebookAuthProvider.credential(result.accessToken.token);
 
-        );
         firebaseUser = (await FirebaseAuth.instance.signInWithCredential(credential)).user;
         print('signed in ' + firebaseUser.displayName);
 

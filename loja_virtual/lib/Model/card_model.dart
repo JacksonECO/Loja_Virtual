@@ -20,16 +20,16 @@ class CardModel extends Model{
   void addCartItem(CardProduct cardProduct){
     products.add(cardProduct);
 
-    Firestore.instance.collection("users").document(user.firebaseUser.uid)
+    FirebaseFirestore.instance.collection("users").doc(user.firebaseUser.uid)
         .collection("card").add(cardProduct.toMap()).then((doc){
-          cardProduct.cid = doc.documentID;
+          cardProduct.cid = doc.id;
     });
     notifyListeners();
   }
 
   void removeCardItem(CardProduct cardProduct){
-    Firestore.instance.collection("users").document(user.firebaseUser.uid)
-        .collection("card").document(cardProduct.cid).delete();
+    FirebaseFirestore.instance.collection("users").doc(user.firebaseUser.uid)
+        .collection("card").doc(cardProduct.cid).delete();
 
     products.remove(cardProduct);
     notifyListeners();
@@ -38,8 +38,8 @@ class CardModel extends Model{
   void decProducts(CardProduct cardProduct){
     cardProduct.quantity--;
 
-    Firestore.instance.collection("users").document(user.firebaseUser.uid).collection("card")
-      .document(cardProduct.cid).updateData(cardProduct.toMap());
+    FirebaseFirestore.instance.collection("users").doc(user.firebaseUser.uid).collection("card")
+      .doc(cardProduct.cid).update(cardProduct.toMap());
 
     notifyListeners();
   }
@@ -47,18 +47,18 @@ class CardModel extends Model{
   void incProducts(CardProduct cardProduct){
     cardProduct.quantity++;
 
-    Firestore.instance.collection("users").document(user.firebaseUser.uid).collection("card")
-        .document(cardProduct.cid).updateData(cardProduct.toMap());
+    FirebaseFirestore.instance.collection("users").doc(user.firebaseUser.uid).collection("card")
+        .doc(cardProduct.cid).update(cardProduct.toMap());
 
     notifyListeners();
   }
 
   void _loadCardItems() async{
     //é usado QuerySnapshot para amarzenar mais de 1 documento
-    QuerySnapshot query = await Firestore.instance.collection("users")
-        .document(user.firebaseUser.uid).collection("card").getDocuments();
+    QuerySnapshot query = await FirebaseFirestore.instance.collection("users")
+        .doc(user.firebaseUser.uid).collection("card").get();
 
-    products = query.documents.map((e) => CardProduct.fromDocument(e)).toList();
+    products = query.docs.map((e) => CardProduct.fromDocument(e)).toList();
     notifyListeners();
   }
 
@@ -121,7 +121,7 @@ class CardModel extends Model{
     double ship = getShip();
     double discount = getDiscount();
     
-    DocumentReference refOrder = await Firestore.instance.collection("orders").add({
+    DocumentReference refOrder = await FirebaseFirestore.instance.collection("orders").add({
       "data": time.day.toString() + "/" + (time.month > 9 ? "" : "0") + time.month.toString() + "/" + time.year.toString(),
       "hora": (time.hour < 10 ? "0" : "") + time.hour.toString() + ":" + (time.minute < 10 ? "0" : "") + time.minute.toString(),
       "clientID": user.firebaseUser.uid,
@@ -133,9 +133,9 @@ class CardModel extends Model{
       "status": 1,
     });
     
-    Firestore.instance.collection("users").document(user.firebaseUser.uid).collection("orders")
-        .document(refOrder.documentID).setData({
-      "orderID": refOrder.documentID,
+    FirebaseFirestore.instance.collection("users").doc(user.firebaseUser.uid).collection("orders")
+        .doc(refOrder.id).set({
+      "orderID": refOrder.id,
       "time": (time.hour   < 10 ? "0" : "") + time.hour.  toString() +" - "+
               (time.minute < 10 ? "0" : "") + time.minute.toString() + ":" +
               (time.second < 10 ? "0" : "") + time.second.toString() + ":" +
@@ -146,10 +146,10 @@ class CardModel extends Model{
               //Por isso a ordem invertida
     });
     
-    QuerySnapshot querySnapshot = await Firestore.instance.collection("users")
-        .document(user.firebaseUser.uid).collection("card").getDocuments();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("users")
+        .doc(user.firebaseUser.uid).collection("card").get();
 
-    for(DocumentSnapshot doc in querySnapshot.documents){
+    for(DocumentSnapshot doc in querySnapshot.docs){
       doc.reference.delete();
     }
 
@@ -159,7 +159,7 @@ class CardModel extends Model{
 
     isLoading = false;
     notifyListeners();
-    return refOrder.documentID;
+    return refOrder.id;
   }
 
 }

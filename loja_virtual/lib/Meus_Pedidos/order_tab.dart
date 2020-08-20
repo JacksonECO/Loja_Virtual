@@ -13,7 +13,7 @@ class OrderTab extends StatelessWidget {
       String uid = UserModel.of(context).firebaseUser.uid;
 
       return FutureBuilder<QuerySnapshot>(
-        future: Firestore.instance.collection("users").document(uid).collection("orders").orderBy("time").getDocuments(),
+        future: FirebaseFirestore.instance.collection("users").doc(uid).collection("orders").orderBy("time").get(),
                 //orderby ordena os doucumentos dentro de um collection de acordo com um certo dado no document
         builder: (context, snapshot){
           if(!snapshot.hasData){
@@ -21,7 +21,7 @@ class OrderTab extends StatelessWidget {
           }
           else{
             return ListView(
-                  children: snapshot.data.documents.map((doc)=>OrderTile(doc.documentID)).toList(), );
+                  children: snapshot.data.docs.map((doc)=>OrderTile(doc.id)).toList(), );
           }
         },
       );

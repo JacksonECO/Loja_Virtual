@@ -98,8 +98,8 @@ class CardTile extends StatelessWidget {
 
       child: cardProduct.productData == null ?
       FutureBuilder<DocumentSnapshot>(
-        future: Firestore.instance.collection("products").document(cardProduct.category)
-          .collection("itens").document(cardProduct.pid).get(),
+        future: FirebaseFirestore.instance.collection("products").doc(cardProduct.category)
+          .collection("itens").doc(cardProduct.pid).get(),
         builder: (context, snapshot){
           if(snapshot.hasData){
             cardProduct.productData = ProductData.fromDocument(snapshot.data);
