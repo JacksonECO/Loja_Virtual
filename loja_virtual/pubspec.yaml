@@ -35,7 +35,7 @@ dependencies:
   carousel_pro: ^1.0.0
   transparent_image: ^1.0.0
   scoped_model: ^1.0.1
-  url_launcher:
+  url_launcher: ^5.5.0
   flutter_facebook_login: ^3.0.0
   google_sign_in: ^4.5.1
   flutter_correios: ^1.0.2
